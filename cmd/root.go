@@ -22,5 +22,6 @@ func init() {
 		putCmd,
 		listCmd,
 		restoreCmd,
+		clearCmd,
 	)
 }
