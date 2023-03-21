@@ -20,5 +20,6 @@ func Execute() {
 func init() {
 	rootCmd.AddCommand(
 		putCmd,
+		listCmd,
 	)
 }
