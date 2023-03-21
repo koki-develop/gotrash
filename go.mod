@@ -1,4 +1,4 @@
-module github.com/koki-develop/trash
+module github.com/koki-develop/gotrash
 
 go 1.20
 

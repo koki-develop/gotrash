@@ -7,7 +7,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use: "trash",
+	Use: "gotrash",
 }
 
 func Execute() {

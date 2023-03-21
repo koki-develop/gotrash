@@ -1,6 +1,6 @@
 package main
 
-import "github.com/koki-develop/trash/cmd"
+import "github.com/koki-develop/gotrash/cmd"
 
 func main() {
 	cmd.Execute()
