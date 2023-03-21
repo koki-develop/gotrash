@@ -21,5 +21,6 @@ func init() {
 	rootCmd.AddCommand(
 		putCmd,
 		listCmd,
+		restoreCmd,
 	)
 }
