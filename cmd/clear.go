@@ -19,9 +19,11 @@ var clearCmd = &cobra.Command{
 		}
 		defer db.Close()
 
-		if !util.YesNo("clear all trashed files or directories?") {
-			fmt.Println("canceled.")
-			return nil
+		if !flagClearForce {
+			if !util.YesNo("clear all trashed files or directories?") {
+				fmt.Println("canceled.")
+				return nil
+			}
 		}
 
 		if err := db.ClearAll(); err != nil {

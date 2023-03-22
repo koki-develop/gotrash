@@ -8,7 +8,11 @@ import (
 
 // flags
 var (
+	// list
 	flagListCurrentDir bool
+
+	// clear
+	flagClearForce bool
 )
 
 var rootCmd = &cobra.Command{
@@ -24,7 +28,9 @@ func Execute() {
 }
 
 func init() {
-	// commands
+	/*
+	 * commands
+	 */
 	rootCmd.AddCommand(
 		putCmd,
 		listCmd,
@@ -32,6 +38,13 @@ func init() {
 		clearCmd,
 	)
 
-	// flags
+	/*
+	 * flags
+	 */
+
+	// list
 	listCmd.Flags().BoolVarP(&flagListCurrentDir, "current-dir", "c", false, "show only the trash in the current directory")
+
+	// clear
+	clearCmd.Flags().BoolVarP(&flagClearForce, "force", "f", false, "skip confirmation before clear")
 }
