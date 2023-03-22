@@ -9,6 +9,7 @@ import (
 
 var listCmd = &cobra.Command{
 	Use:     "list",
+	Short:   "list trashed flies or directories",
 	Aliases: []string{"ls"},
 	Args:    cobra.MaximumNArgs(0),
 	RunE: func(cmd *cobra.Command, args []string) error {

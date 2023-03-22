@@ -6,7 +6,9 @@ import (
 )
 
 var clearCmd = &cobra.Command{
-	Use: "clear",
+	Use:   "clear",
+	Short: "clear all trashed files or directories",
+	Args:  cobra.MaximumNArgs(0),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		db, err := db.Open()
 		if err != nil {

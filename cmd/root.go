@@ -7,7 +7,8 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use: "gotrash",
+	Use:   "gotrash",
+	Short: "rm alternative written in Go.",
 }
 
 func Execute() {
