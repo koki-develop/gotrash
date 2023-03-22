@@ -67,7 +67,7 @@ func init() {
 	listCmd.Flags().BoolVarP(&flagListAll, "all", "a", false, "show all trash")
 
 	// restore
-	restoreCmd.Flags().BoolVarP(&flagRestoreForce, "force", "f", false, "overwrite a file or directory with the same name")
+	restoreCmd.Flags().BoolVarP(&flagRestoreForce, "force", "f", false, "overwrite a file or directory if it already exists")
 
 	// clear
 	clearCmd.Flags().BoolVarP(&flagClearForce, "force", "f", false, "skip confirmation before clear")
