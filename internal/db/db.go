@@ -126,17 +126,47 @@ func (db *DB) List() (trash.TrashList, error) {
 }
 
 func (db *DB) Restore(is []int) error {
-	allts, err := db.List()
+	maxi := 0
+	m := make(map[int]struct{}, len(is))
+	for _, i := range is {
+		m[i] = struct{}{}
+		if maxi < i {
+			maxi = i
+		}
+	}
+
+	var ts trash.TrashList
+
+	err := db.db.View(func(tx *buntdb.Tx) error {
+		i := 0
+		err := tx.Ascend("", func(k, v string) bool {
+			if _, ok := m[i]; ok {
+				ts = append(ts, trash.MustFromJSON(k, []byte(v)))
+				delete(m, i)
+			}
+
+			if i == maxi {
+				return false
+			}
+			i++
+			return true
+		})
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
 	if err != nil {
 		return err
 	}
 
-	var ts trash.TrashList
-	for _, i := range is {
-		if len(allts) <= i {
-			return fmt.Errorf("%d: no such index item", i)
+	if len(m) > 0 {
+		is := []int{}
+		for i := range m {
+			is = append(is, i)
 		}
-		ts = append(ts, allts[i])
+		return fmt.Errorf("%d: no such index item", is)
 	}
 
 	for _, t := range ts {
