@@ -2,8 +2,13 @@ package cmd
 
 import (
 	"os"
+	"runtime/debug"
 
 	"github.com/spf13/cobra"
+)
+
+var (
+	version string
 )
 
 // flags
@@ -29,8 +34,21 @@ func Execute() {
 
 func init() {
 	/*
+	 * version
+	 */
+
+	if version == "" {
+		if info, ok := debug.ReadBuildInfo(); ok {
+			version = info.Main.Version
+		}
+	}
+
+	rootCmd.Version = version
+
+	/*
 	 * commands
 	 */
+
 	rootCmd.AddCommand(
 		putCmd,
 		listCmd,
