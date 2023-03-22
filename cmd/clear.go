@@ -1,7 +1,10 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/koki-develop/gotrash/internal/db"
+	"github.com/koki-develop/gotrash/internal/util"
 	"github.com/spf13/cobra"
 )
 
@@ -15,6 +18,11 @@ var clearCmd = &cobra.Command{
 			return err
 		}
 		defer db.Close()
+
+		if !util.YesNo("clear all trashed files or directories?") {
+			fmt.Println("canceled.")
+			return nil
+		}
 
 		if err := db.ClearAll(); err != nil {
 			return err
