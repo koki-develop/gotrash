@@ -3,7 +3,7 @@ before:
     - go mod tidy
 builds:
   - ldflags:
-      - -s -w -X github.com/koki-develop/gat/cmd.version=v{{.Version}}
+      - -s -w -X github.com/koki-develop/gotrash/cmd.version=v{{.Version}}
     env:
       - CGO_ENABLED=0
     goos:
