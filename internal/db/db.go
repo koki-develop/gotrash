@@ -13,7 +13,7 @@ import (
 
 const (
 	trashDirname = ".gotrash"
-	filesDirname = "files"
+	filesDirname = "can"
 	dbFilename   = "db"
 
 	shrinkSize = 10 * 1024 * 1024 // 10MB
