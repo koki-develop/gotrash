@@ -10,7 +10,8 @@ import (
 
 var clearCmd = &cobra.Command{
 	Use:   "clear",
-	Short: "clear all trashed files or directories",
+	Short: "Clear all trashed files or directories",
+	Long:  "Clear all trashed files or directories.",
 	Args:  cobra.MaximumNArgs(0),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		db, err := db.Open()

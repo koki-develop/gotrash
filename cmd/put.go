@@ -7,7 +7,8 @@ import (
 
 var putCmd = &cobra.Command{
 	Use:   "put [file]...",
-	Short: "trash files or directories",
+	Short: "Trash files or directories",
+	Long:  "Trash files or directories.",
 	Args:  cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		db, err := db.Open()
