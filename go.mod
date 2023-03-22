@@ -6,6 +6,7 @@ require (
 	github.com/charmbracelet/bubbles v0.15.0
 	github.com/charmbracelet/bubbletea v0.23.2
 	github.com/google/uuid v1.3.0
+	github.com/sahilm/fuzzy v0.1.0
 	github.com/spf13/cobra v1.6.1
 	github.com/tidwall/buntdb v1.2.10
 )

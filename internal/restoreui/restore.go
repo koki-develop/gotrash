@@ -8,6 +8,7 @@ import (
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/koki-develop/gotrash/internal/trash"
+	"github.com/sahilm/fuzzy"
 )
 
 const headerHeight = 1
@@ -25,6 +26,7 @@ type keymap struct {
 type Model struct {
 	// state
 	trashList trash.TrashList
+	filtered  trash.TrashList
 	cursor    int
 	cancel    bool
 
@@ -97,7 +99,7 @@ func (m *Model) headerView() string {
 func (m *Model) listView() string {
 	rows := []string{}
 
-	for i, t := range m.trashList {
+	for i, t := range m.filtered {
 		if i < m.windowYPosition {
 			continue
 		}
@@ -139,7 +141,6 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.windowWidth = msg.Width
 		m.windowHeight = msg.Height
 		m.input.Width = m.windowWidth - 3
-		m.fixYPosition()
 	}
 
 	var cmds []tea.Cmd
@@ -150,6 +151,10 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		cmds = append(cmds, cmd)
 	}
 
+	m.filter()
+	m.fixYPosition()
+	m.fixCursor()
+
 	return m, tea.Batch(cmds...)
 }
 
@@ -157,21 +162,43 @@ func (m *Model) cursorUp() {
 	if m.cursor > 0 {
 		m.cursor--
 	}
-	m.fixYPosition()
 }
 
 func (m *Model) cursorDown() {
-	if m.cursor+1 < len(m.trashList) {
+	if m.cursor+1 < len(m.filtered) {
 		m.cursor++
 	}
-	m.fixYPosition()
+}
+
+func (m *Model) fixCursor() {
+	if m.cursor+1 > len(m.filtered) {
+		m.cursor = len(m.filtered) - 1
+	}
 }
 
 func (m *Model) fixYPosition() {
+	if m.windowHeight-headerHeight > len(m.filtered) {
+		m.windowYPosition = 0
+	}
 	if m.cursor < m.windowYPosition {
 		m.windowYPosition = m.cursor
 	}
 	if m.cursor+1 >= (m.windowHeight-headerHeight)+m.windowYPosition {
 		m.windowYPosition = m.cursor + 1 - (m.windowHeight - headerHeight)
 	}
+}
+
+func (m *Model) filter() {
+	s := m.input.Value()
+	if s == "" {
+		m.filtered = m.trashList
+		return
+	}
+
+	var filtered trash.TrashList
+	matches := fuzzy.FindFrom(s, m.trashList)
+	for _, match := range matches {
+		filtered = append(filtered, m.trashList[match.Index])
+	}
+	m.filtered = filtered
 }
