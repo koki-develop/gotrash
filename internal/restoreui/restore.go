@@ -2,6 +2,7 @@ package restoreui
 
 import (
 	"github.com/charmbracelet/bubbles/key"
+	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -17,12 +18,23 @@ type Model struct {
 	// state
 	cancel bool
 
+	// component
+	input textinput.Model
+
 	// keymap
 	keymap *keymap
 }
 
 func New() *Model {
+	ipt := textinput.New()
+	ipt.Placeholder = "Filter"
+	ipt.Focus()
+
 	return &Model{
+		// state
+		cancel: false,
+		// component
+		input: ipt,
 		// keymap
 		keymap: &keymap{
 			Cancel: key.NewBinding(key.WithKeys("ctrl+c", "esc")),
@@ -43,7 +55,10 @@ func Run(m *Model) error {
  */
 
 func (m *Model) Init() tea.Cmd {
-	return tea.EnterAltScreen
+	return tea.Batch(
+		textinput.Blink,
+		tea.EnterAltScreen,
+	)
 }
 
 /*
@@ -51,7 +66,7 @@ func (m *Model) Init() tea.Cmd {
  */
 
 func (m *Model) View() string {
-	return "hello restore ui"
+	return m.input.View()
 }
 
 /*
@@ -66,7 +81,17 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.cancel = true
 			return m, tea.Quit
 		}
+	case tea.WindowSizeMsg:
+		m.input.Width = msg.Width - 3
 	}
 
-	return m, nil
+	var cmds []tea.Cmd
+
+	{
+		ipt, cmd := m.input.Update(msg)
+		m.input = ipt
+		cmds = append(cmds, cmd)
+	}
+
+	return m, tea.Batch(cmds...)
 }
