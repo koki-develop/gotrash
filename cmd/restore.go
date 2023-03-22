@@ -21,7 +21,12 @@ var restoreCmd = &cobra.Command{
 		defer db.Close()
 
 		if len(args) == 0 {
-			m := restoreui.New()
+			ts, err := db.List()
+			if err != nil {
+				return err
+			}
+
+			m := restoreui.New(ts)
 			if err := restoreui.Run(m); err != nil {
 				return err
 			}
