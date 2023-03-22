@@ -10,7 +10,7 @@ import (
 func YesNo(msg string) bool {
 	sc := bufio.NewScanner(os.Stdin)
 
-	fmt.Printf("%s: ", msg)
+	fmt.Printf("%s (y/N): ", msg)
 	_ = sc.Scan()
 	yn := sc.Text()
 
