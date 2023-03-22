@@ -139,6 +139,7 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.windowWidth = msg.Width
 		m.windowHeight = msg.Height
 		m.input.Width = m.windowWidth - 3
+		m.fixYPosition()
 	}
 
 	var cmds []tea.Cmd
@@ -156,14 +157,19 @@ func (m *Model) cursorUp() {
 	if m.cursor > 0 {
 		m.cursor--
 	}
-	if m.cursor < m.windowYPosition {
-		m.windowYPosition = m.cursor
-	}
+	m.fixYPosition()
 }
 
 func (m *Model) cursorDown() {
 	if m.cursor+1 < len(m.trashList) {
 		m.cursor++
+	}
+	m.fixYPosition()
+}
+
+func (m *Model) fixYPosition() {
+	if m.cursor < m.windowYPosition {
+		m.windowYPosition = m.cursor
 	}
 	if m.cursor+1 >= (m.windowHeight-headerHeight)+m.windowYPosition {
 		m.windowYPosition = m.cursor + 1 - (m.windowHeight - headerHeight)
