@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/koki-develop/gotrash/internal/db"
+	"github.com/koki-develop/gotrash/internal/restoreui"
 	"github.com/spf13/cobra"
 )
 
@@ -19,17 +20,24 @@ var restoreCmd = &cobra.Command{
 		}
 		defer db.Close()
 
-		var is []int
-		for _, arg := range args {
-			i, err := strconv.Atoi(arg)
-			if err != nil {
+		if len(args) == 0 {
+			m := restoreui.New()
+			if err := restoreui.Run(m); err != nil {
 				return err
 			}
-			is = append(is, i)
-		}
+		} else {
+			var is []int
+			for _, arg := range args {
+				i, err := strconv.Atoi(arg)
+				if err != nil {
+					return err
+				}
+				is = append(is, i)
+			}
 
-		if err := db.Restore(is, flagRestoreForce); err != nil {
-			return err
+			if err := db.Restore(is, flagRestoreForce); err != nil {
+				return err
+			}
 		}
 
 		return nil
