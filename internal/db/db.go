@@ -125,7 +125,7 @@ func (db *DB) List() (trash.TrashList, error) {
 	return ts, nil
 }
 
-func (db *DB) Restore(is []int) error {
+func (db *DB) Restore(is []int, force bool) error {
 	maxi := 0
 	m := make(map[int]struct{}, len(is))
 	for _, i := range is {
@@ -170,12 +170,14 @@ func (db *DB) Restore(is []int) error {
 	}
 
 	for _, t := range ts {
-		exists, err := util.Exists(t.Path)
-		if err != nil {
-			return err
-		}
-		if exists {
-			return fmt.Errorf("%s: already exists", t.Path)
+		if !force {
+			exists, err := util.Exists(t.Path)
+			if err != nil {
+				return err
+			}
+			if exists {
+				return fmt.Errorf("%s: already exists", t.Path)
+			}
 		}
 
 		err = db.db.Update(func(tx *buntdb.Tx) error {

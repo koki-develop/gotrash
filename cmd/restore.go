@@ -28,7 +28,7 @@ var restoreCmd = &cobra.Command{
 			is = append(is, i)
 		}
 
-		if err := db.Restore(is); err != nil {
+		if err := db.Restore(is, flagRestoreForce); err != nil {
 			return err
 		}
 

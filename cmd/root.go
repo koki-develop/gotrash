@@ -16,6 +16,9 @@ var (
 	// list
 	flagListAll bool
 
+	// restore
+	flagRestoreForce bool
+
 	// clear
 	flagClearForce bool
 )
@@ -62,6 +65,9 @@ func init() {
 
 	// list
 	listCmd.Flags().BoolVarP(&flagListAll, "all", "a", false, "show all trash")
+
+	// restore
+	restoreCmd.Flags().BoolVarP(&flagRestoreForce, "force", "f", false, "overwrite a file or directory with the same name")
 
 	// clear
 	clearCmd.Flags().BoolVarP(&flagClearForce, "force", "f", false, "skip confirmation before clear")
