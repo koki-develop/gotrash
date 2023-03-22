@@ -9,7 +9,7 @@ import (
 // flags
 var (
 	// list
-	flagListCurrentDir bool
+	flagListAll bool
 
 	// clear
 	flagClearForce bool
@@ -43,7 +43,7 @@ func init() {
 	 */
 
 	// list
-	listCmd.Flags().BoolVarP(&flagListCurrentDir, "current-dir", "c", false, "show only the trash in the current directory")
+	listCmd.Flags().BoolVarP(&flagListAll, "all", "a", false, "show all trash")
 
 	// clear
 	clearCmd.Flags().BoolVarP(&flagClearForce, "force", "f", false, "skip confirmation before clear")
