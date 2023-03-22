@@ -164,7 +164,7 @@ func (db *DB) Restore(is []int) error {
 		}
 	}
 
-	if err := db.shrink(); err != nil {
+	if err := db.shrink(false); err != nil {
 		return err
 	}
 
@@ -184,14 +184,21 @@ func (db *DB) ClearAll() error {
 		return nil
 	})
 
-	if err := db.shrink(); err != nil {
+	if err := db.shrink(true); err != nil {
 		return err
 	}
 
 	return err
 }
 
-func (db *DB) shrink() error {
+func (db *DB) shrink(force bool) error {
+	if force {
+		if err := db.db.Shrink(); err != nil {
+			return err
+		}
+		return nil
+	}
+
 	info, err := os.Stat(db.dbFile)
 	if err != nil {
 		return err
