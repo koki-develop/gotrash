@@ -33,7 +33,7 @@ var listCmd = &cobra.Command{
 		}
 
 		for i, t := range ts {
-			if !flagListAll {
+			if flagListCurrentDir {
 				if !strings.HasPrefix(t.Path, cwd) {
 					continue
 				}

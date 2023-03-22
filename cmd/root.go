@@ -14,7 +14,7 @@ var (
 // flags
 var (
 	// list
-	flagListAll bool
+	flagListCurrentDir bool
 
 	// restore
 	flagRestoreForce bool
@@ -64,7 +64,7 @@ func init() {
 	 */
 
 	// list
-	listCmd.Flags().BoolVarP(&flagListAll, "all", "a", false, "show all trash")
+	listCmd.Flags().BoolVarP(&flagListCurrentDir, "current-dir", "c", false, "show only the trash in the current directory")
 
 	// restore
 	restoreCmd.Flags().BoolVarP(&flagRestoreForce, "force", "f", false, "overwrite a file or directory if it already exists")
