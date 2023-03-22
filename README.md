@@ -84,8 +84,8 @@ Aliases:
   list, ls
 
 Flags:
-  -a, --all    show all trash
-  -h, --help   help for list
+  -c, --current-dir   show only the trash in the current directory
+  -h, --help          help for list
 ```
 
 ### `gotrash restore`
