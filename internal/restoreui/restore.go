@@ -1,15 +1,33 @@
 package restoreui
 
-import tea "github.com/charmbracelet/bubbletea"
+import (
+	"github.com/charmbracelet/bubbles/key"
+	tea "github.com/charmbracelet/bubbletea"
+)
 
 var (
 	_ tea.Model = (*Model)(nil)
 )
 
-type Model struct{}
+type keymap struct {
+	Cancel key.Binding
+}
+
+type Model struct {
+	// state
+	cancel bool
+
+	// keymap
+	keymap *keymap
+}
 
 func New() *Model {
-	return &Model{}
+	return &Model{
+		// keymap
+		keymap: &keymap{
+			Cancel: key.NewBinding(key.WithKeys("ctrl+c", "esc")),
+		},
+	}
 }
 
 func Run(m *Model) error {
@@ -20,14 +38,35 @@ func Run(m *Model) error {
 	return nil
 }
 
+/*
+ * init
+ */
+
 func (m *Model) Init() tea.Cmd {
-	return nil
+	return tea.EnterAltScreen
 }
+
+/*
+ * view
+ */
 
 func (m *Model) View() string {
-	return "restore ui"
+	return "hello restore ui"
 }
 
+/*
+ * update
+ */
+
 func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	return m, tea.Quit
+	switch msg := msg.(type) {
+	case tea.KeyMsg:
+		switch {
+		case key.Matches(msg, m.keymap.Cancel):
+			m.cancel = true
+			return m, tea.Quit
+		}
+	}
+
+	return m, nil
 }
