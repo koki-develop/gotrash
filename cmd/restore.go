@@ -8,7 +8,7 @@ import (
 )
 
 var restoreCmd = &cobra.Command{
-	Use:     "restore",
+	Use:     "restore [index]...",
 	Short:   "restore trashed files or directories",
 	Aliases: []string{"rs"},
 	RunE: func(cmd *cobra.Command, args []string) error {
