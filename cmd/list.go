@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"strings"
 
 	"github.com/koki-develop/gotrash/internal/db"
 	"github.com/spf13/cobra"
@@ -24,7 +26,18 @@ var listCmd = &cobra.Command{
 			return err
 		}
 
+		cwd, err := os.Getwd()
+		if err != nil {
+			return err
+		}
+
 		for i, t := range ts {
+			if flagListCurrentDir {
+				if !strings.HasPrefix(t.Path, cwd) {
+					continue
+				}
+			}
+
 			fmt.Printf("%d: %s\n", i, t.Path)
 		}
 
