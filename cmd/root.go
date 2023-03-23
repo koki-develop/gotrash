@@ -24,8 +24,9 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:  "gotrash",
-	Long: "rm alternative written in Go.",
+	Use:          "gotrash",
+	Long:         "rm alternative written in Go.",
+	SilenceUsage: true,
 }
 
 func Execute() {
