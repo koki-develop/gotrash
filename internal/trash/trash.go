@@ -35,3 +35,12 @@ func MustFromJSON(k string, b []byte) *Trash {
 	t.Key = k
 	return t
 }
+
+// for fuzzy
+func (ts TrashList) String(i int) string {
+	return ts[i].Path
+}
+
+func (ts TrashList) Len() int {
+	return len(ts)
+}

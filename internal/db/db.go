@@ -103,15 +103,24 @@ func (db *DB) Put(ps []string) error {
 	return nil
 }
 
-func (db *DB) List() (trash.TrashList, error) {
+func (db *DB) List(asc bool) (trash.TrashList, error) {
 	var ts trash.TrashList
 
 	err := db.db.View(func(tx *buntdb.Tx) error {
-		err := tx.Ascend("", func(k, v string) bool {
-			t := trash.MustFromJSON(k, []byte(v))
-			ts = append(ts, t)
-			return true
-		})
+		var err error
+		if asc {
+			err = tx.Ascend("", func(k, v string) bool {
+				t := trash.MustFromJSON(k, []byte(v))
+				ts = append(ts, t)
+				return true
+			})
+		} else {
+			err = tx.Descend("", func(k, v string) bool {
+				t := trash.MustFromJSON(k, []byte(v))
+				ts = append(ts, t)
+				return true
+			})
+		}
 		if err != nil {
 			return err
 		}
@@ -125,7 +134,7 @@ func (db *DB) List() (trash.TrashList, error) {
 	return ts, nil
 }
 
-func (db *DB) Restore(is []int, force bool) error {
+func (db *DB) RestoreByIndexes(is []int, force bool) error {
 	maxi := 0
 	m := make(map[int]struct{}, len(is))
 	for _, i := range is {
@@ -169,6 +178,14 @@ func (db *DB) Restore(is []int, force bool) error {
 		return fmt.Errorf("%d: no such index item", is)
 	}
 
+	if err := db.Restore(ts, force); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (db *DB) Restore(ts trash.TrashList, force bool) error {
 	for _, t := range ts {
 		if !force {
 			exists, err := util.Exists(t.Path)
@@ -180,7 +197,7 @@ func (db *DB) Restore(is []int, force bool) error {
 			}
 		}
 
-		err = db.db.Update(func(tx *buntdb.Tx) error {
+		err := db.db.Update(func(tx *buntdb.Tx) error {
 			if _, err := tx.Delete(t.Key); err != nil {
 				return err
 			}
@@ -194,6 +211,8 @@ func (db *DB) Restore(is []int, force bool) error {
 		if err != nil {
 			return err
 		}
+
+		fmt.Printf("restored: %s\n", t.Path)
 	}
 
 	if err := db.shrink(false); err != nil {

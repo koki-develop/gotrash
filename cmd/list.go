@@ -10,11 +10,12 @@ import (
 )
 
 var listCmd = &cobra.Command{
-	Use:     "list",
-	Short:   "List trashed flies or directories",
-	Long:    "List trashed flies or directories.",
-	Aliases: []string{"ls"},
-	Args:    cobra.MaximumNArgs(0),
+	Use:          "list",
+	Short:        "List trashed flies or directories",
+	Long:         "List trashed flies or directories.",
+	Aliases:      []string{"ls"},
+	Args:         cobra.MaximumNArgs(0),
+	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		db, err := db.Open()
 		if err != nil {
@@ -22,7 +23,7 @@ var listCmd = &cobra.Command{
 		}
 		defer db.Close()
 
-		ts, err := db.List()
+		ts, err := db.List(true)
 		if err != nil {
 			return err
 		}
