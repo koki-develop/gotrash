@@ -60,64 +60,42 @@ Use "gotrash [command] --help" for more information about a command.
 
 ### `gotrash put`
 
-```console
-$ gotrash put --help
-Trash files or directories.
+`gotrash put` trashes files or directories.
 
-Usage:
-  gotrash put [file]... [flags]
-
-Flags:
-  -h, --help   help for put
-```
+![](./docs/put.gif)
 
 ### `gotrash list`
 
+Alias: `gotrash ls`
+
+Files and directories trashed by `gotrash put` are not deleted, but placed in the trash can.  
+Files and directories in the trash can can be viewed with `gotrash list`.
+
 ```console
-$ gotrash list --help
-List trashed flies or directories.
-
-Usage:
-  gotrash list [flags]
-
-Aliases:
-  list, ls
-
-Flags:
-  -c, --current-dir   show only the trash in the current directory
-  -h, --help          help for list
+$ gotrash list
 ```
+
+![](./docs/list.gif)
 
 ### `gotrash restore`
 
-```console
-$ gotrash restore --help
-Restore trashed files or directories.
+Alias: `gotrash rs`
 
-Usage:
-  gotrash restore [index]... [flags]
+Trashed files and directories can be restored with `gotrash restore`.  
+Check the index with `gotrash list` and pass it.
 
-Aliases:
-  restore, rs
+![](./docs/restore.gif)
 
-Flags:
-  -f, --force   overwrite a file or directory if it already exists
-  -h, --help    help for restore
-```
+If you execute without specifying indexes, fuzzy finder will start.  
+You can use the tab key to select multiple files or directories to restore.
+
+![](./docs/restore-ui.gif)
 
 ### `gotrash clear`
 
-```console
-$ gotrash clear --help
-Clear all trashed files or directories.
+`gotrash clear` deletes all trashed files and directories.
 
-Usage:
-  gotrash clear [flags]
-
-Flags:
-  -f, --force   skip confirmation before clear
-  -h, --help    help for clear
-```
+![](./docs/clear.gif)
 
 ## LICENSE
 
