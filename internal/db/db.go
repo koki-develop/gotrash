@@ -103,15 +103,24 @@ func (db *DB) Put(ps []string) error {
 	return nil
 }
 
-func (db *DB) List() (trash.TrashList, error) {
+func (db *DB) List(asc bool) (trash.TrashList, error) {
 	var ts trash.TrashList
 
 	err := db.db.View(func(tx *buntdb.Tx) error {
-		err := tx.Ascend("", func(k, v string) bool {
-			t := trash.MustFromJSON(k, []byte(v))
-			ts = append(ts, t)
-			return true
-		})
+		var err error
+		if asc {
+			err = tx.Ascend("", func(k, v string) bool {
+				t := trash.MustFromJSON(k, []byte(v))
+				ts = append(ts, t)
+				return true
+			})
+		} else {
+			err = tx.Descend("", func(k, v string) bool {
+				t := trash.MustFromJSON(k, []byte(v))
+				ts = append(ts, t)
+				return true
+			})
+		}
 		if err != nil {
 			return err
 		}

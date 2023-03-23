@@ -23,7 +23,7 @@ var listCmd = &cobra.Command{
 		}
 		defer db.Close()
 
-		ts, err := db.List()
+		ts, err := db.List(true)
 		if err != nil {
 			return err
 		}
