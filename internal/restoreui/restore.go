@@ -7,6 +7,7 @@ import (
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/koki-develop/gotrash/internal/trash"
 	"github.com/sahilm/fuzzy"
 )
@@ -23,10 +24,17 @@ type keymap struct {
 	Cancel key.Binding
 }
 
+type match struct {
+	Trash   *trash.Trash
+	Indexes []int
+}
+
+type matches []*match
+
 type Model struct {
 	// state
 	trashList trash.TrashList
-	filtered  trash.TrashList
+	matches   matches
 	cursor    int
 	cancel    bool
 
@@ -97,25 +105,42 @@ func (m *Model) headerView() string {
 }
 
 func (m *Model) listView() string {
-	rows := []string{}
+	var v strings.Builder
 
-	for i, t := range m.filtered {
+	for i, match := range m.matches {
 		if i < m.windowYPosition {
 			continue
 		}
+
+		var s strings.Builder
 
 		cursor := "  "
 		if i == m.cursor {
 			cursor = "> "
 		}
+		s.WriteString(cursor)
 
-		rows = append(rows, fmt.Sprintf("%s%s", cursor, t.Path))
+		for ci, c := range match.Trash.Path {
+			style := lipgloss.NewStyle()
+			for _, idx := range match.Indexes {
+				if ci == idx {
+					style = style.Foreground(lipgloss.Color("#00ADD8"))
+				}
+			}
+			if i == m.cursor {
+				style = style.Bold(true)
+			}
+			s.WriteString(style.Render(string(c)))
+		}
+
+		v.WriteString(s.String())
 		if i+1 == m.windowYPosition+(m.windowHeight-headerHeight) {
 			break
 		}
+		v.WriteString("\n")
 	}
 
-	return strings.Join(rows, "\n")
+	return v.String()
 }
 
 /*
@@ -165,19 +190,19 @@ func (m *Model) cursorUp() {
 }
 
 func (m *Model) cursorDown() {
-	if m.cursor+1 < len(m.filtered) {
+	if m.cursor+1 < len(m.matches) {
 		m.cursor++
 	}
 }
 
 func (m *Model) fixCursor() {
-	if m.cursor+1 > len(m.filtered) {
-		m.cursor = len(m.filtered) - 1
+	if m.cursor+1 > len(m.matches) {
+		m.cursor = len(m.matches) - 1
 	}
 }
 
 func (m *Model) fixYPosition() {
-	if m.windowHeight-headerHeight > len(m.filtered) {
+	if m.windowHeight-headerHeight > len(m.matches) {
 		m.windowYPosition = 0
 	}
 	if m.cursor < m.windowYPosition {
@@ -189,16 +214,23 @@ func (m *Model) fixYPosition() {
 }
 
 func (m *Model) filter() {
+	var matches matches
+
 	s := m.input.Value()
 	if s == "" {
-		m.filtered = m.trashList
+		for _, t := range m.trashList {
+			matches = append(matches, &match{Trash: t})
+		}
+		m.matches = matches
 		return
 	}
 
-	var filtered trash.TrashList
-	matches := fuzzy.FindFrom(s, m.trashList)
-	for _, match := range matches {
-		filtered = append(filtered, m.trashList[match.Index])
+	fuzzymatches := fuzzy.FindFrom(s, m.trashList)
+	for _, fuzzymatch := range fuzzymatches {
+		matches = append(matches, &match{
+			Trash:   m.trashList[fuzzymatch.Index],
+			Indexes: fuzzymatch.MatchedIndexes,
+		})
 	}
-	m.filtered = filtered
+	m.matches = matches
 }
