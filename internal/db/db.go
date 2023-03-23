@@ -202,6 +202,8 @@ func (db *DB) Restore(ts trash.TrashList, force bool) error {
 		if err != nil {
 			return err
 		}
+
+		fmt.Printf("restored: %s\n", t.Path)
 	}
 
 	if err := db.shrink(false); err != nil {
