@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/koki-develop/gotrash/internal/db"
@@ -30,6 +31,15 @@ var restoreCmd = &cobra.Command{
 			if err := restoreui.Run(m); err != nil {
 				return err
 			}
+
+			if m.Canceled() {
+				fmt.Println("canceled.")
+				return nil
+			}
+
+			if err := db.Restore(m.Selected(), flagRestoreForce); err != nil {
+				return err
+			}
 		} else {
 			var is []int
 			for _, arg := range args {
@@ -40,7 +50,7 @@ var restoreCmd = &cobra.Command{
 				is = append(is, i)
 			}
 
-			if err := db.Restore(is, flagRestoreForce); err != nil {
+			if err := db.RestoreByIndexes(is, flagRestoreForce); err != nil {
 				return err
 			}
 		}

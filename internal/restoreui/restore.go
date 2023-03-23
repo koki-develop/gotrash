@@ -9,6 +9,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/koki-develop/gotrash/internal/trash"
+	"github.com/koki-develop/gotrash/internal/util"
 	"github.com/sahilm/fuzzy"
 )
 
@@ -22,6 +23,7 @@ type keymap struct {
 	Up     key.Binding
 	Down   key.Binding
 	Enter  key.Binding
+	Toggle key.Binding
 	Cancel key.Binding
 }
 
@@ -38,6 +40,7 @@ type Model struct {
 	matches   matches
 	cursor    int
 	cancel    bool
+	selected  trash.TrashList
 
 	// component
 	input textinput.Model
@@ -61,6 +64,7 @@ func New(ts trash.TrashList) *Model {
 		trashList: ts,
 		cursor:    0,
 		cancel:    false,
+		selected:  trash.TrashList{},
 		// component
 		input: ipt,
 		// window
@@ -70,6 +74,7 @@ func New(ts trash.TrashList) *Model {
 			Up:     key.NewBinding(key.WithKeys("up", "ctrl+p")),
 			Down:   key.NewBinding(key.WithKeys("down", "ctrl+n")),
 			Enter:  key.NewBinding(key.WithKeys("enter")),
+			Toggle: key.NewBinding(key.WithKeys("tab")),
 			Cancel: key.NewBinding(key.WithKeys("ctrl+c", "esc")),
 		},
 	}
@@ -81,6 +86,14 @@ func Run(m *Model) error {
 		return err
 	}
 	return nil
+}
+
+func (m *Model) Canceled() bool {
+	return m.cancel
+}
+
+func (m *Model) Selected() trash.TrashList {
+	return m.selected
 }
 
 /*
@@ -122,12 +135,16 @@ func (m *Model) listView() string {
 		}
 		s.WriteString(cursor)
 
+		box := "[ ] "
+		if util.Some(m.selected, func(t *trash.Trash) bool { return t.Key == match.Trash.Key }) {
+			box = "[x] "
+		}
+		s.WriteString(box)
+
 		for ci, c := range match.Trash.Path {
 			style := lipgloss.NewStyle()
-			for _, idx := range match.Indexes {
-				if ci == idx {
-					style = style.Foreground(lipgloss.Color("#00ADD8"))
-				}
+			if util.Contains(match.Indexes, ci) {
+				style = style.Foreground(lipgloss.Color("#00ADD8"))
 			}
 			if i == m.cursor {
 				style = style.Bold(true)
@@ -155,7 +172,11 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch {
 		case key.Matches(msg, m.keymap.Enter):
 			// enter
+			m.enter()
 			return m, tea.Quit
+		case key.Matches(msg, m.keymap.Toggle):
+			// toggle
+			m.toggle()
 		case key.Matches(msg, m.keymap.Cancel):
 			// cancel
 			m.cancel = true
@@ -238,4 +259,20 @@ func (m *Model) filter() {
 		})
 	}
 	m.matches = matches
+}
+
+func (m *Model) enter() {
+	if len(m.selected) == 0 {
+		m.selected = trash.TrashList{m.trashList[m.cursor]}
+	}
+}
+
+func (m *Model) toggle() {
+	if util.Some(m.selected, func(t *trash.Trash) bool { return t.Key == m.trashList[m.cursor].Key }) {
+		// unselect
+		m.selected = util.Filter(m.selected, func(t *trash.Trash) bool { return t.Key != m.trashList[m.cursor].Key })
+	} else {
+		// select
+		m.selected = append(m.selected, m.trashList[m.cursor])
+	}
 }
