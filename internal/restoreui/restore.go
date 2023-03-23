@@ -139,9 +139,9 @@ func (m *Model) listView() string {
 		}
 		s.WriteString(cursor)
 
-		box := "◯  "
+		box := "◯ "
 		if util.Some(m.selected, func(t *trash.Trash) bool { return t.Key == match.Trash.Key }) {
-			box = lipgloss.NewStyle().Foreground(mainColor).Render("●  ")
+			box = lipgloss.NewStyle().Foreground(mainColor).Render("● ")
 		}
 		s.WriteString(box)
 
