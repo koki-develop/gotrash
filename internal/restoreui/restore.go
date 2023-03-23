@@ -21,6 +21,7 @@ var (
 type keymap struct {
 	Up     key.Binding
 	Down   key.Binding
+	Enter  key.Binding
 	Cancel key.Binding
 }
 
@@ -68,6 +69,7 @@ func New(ts trash.TrashList) *Model {
 		keymap: &keymap{
 			Up:     key.NewBinding(key.WithKeys("up", "ctrl+p")),
 			Down:   key.NewBinding(key.WithKeys("down", "ctrl+n")),
+			Enter:  key.NewBinding(key.WithKeys("enter")),
 			Cancel: key.NewBinding(key.WithKeys("ctrl+c", "esc")),
 		},
 	}
@@ -151,6 +153,9 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch {
+		case key.Matches(msg, m.keymap.Enter):
+			// enter
+			return m, tea.Quit
 		case key.Matches(msg, m.keymap.Cancel):
 			// cancel
 			m.cancel = true
