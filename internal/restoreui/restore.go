@@ -222,6 +222,9 @@ func (m *Model) cursorDown() {
 }
 
 func (m *Model) fixCursor() {
+	if m.cursor < 0 && len(m.matches) > 0 {
+		m.cursor = 0
+	}
 	if m.cursor+1 > len(m.matches) {
 		m.cursor = len(m.matches) - 1
 	}
@@ -262,17 +265,21 @@ func (m *Model) filter() {
 }
 
 func (m *Model) enter() {
-	if len(m.selected) == 0 {
-		m.selected = trash.TrashList{m.trashList[m.cursor]}
+	if len(m.selected) == 0 && m.cursor >= 0 {
+		m.selected = trash.TrashList{m.matches[m.cursor].Trash}
 	}
 }
 
 func (m *Model) toggle() {
-	if util.Some(m.selected, func(t *trash.Trash) bool { return t.Key == m.trashList[m.cursor].Key }) {
+	if m.cursor < 0 {
+		return
+	}
+
+	if util.Some(m.selected, func(t *trash.Trash) bool { return t.Key == m.matches[m.cursor].Trash.Key }) {
 		// unselect
-		m.selected = util.Filter(m.selected, func(t *trash.Trash) bool { return t.Key != m.trashList[m.cursor].Key })
+		m.selected = util.Filter(m.selected, func(t *trash.Trash) bool { return t.Key != m.matches[m.cursor].Trash.Key })
 	} else {
 		// select
-		m.selected = append(m.selected, m.trashList[m.cursor])
+		m.selected = append(m.selected, m.matches[m.cursor].Trash)
 	}
 }
