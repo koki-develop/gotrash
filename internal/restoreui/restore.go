@@ -111,6 +111,10 @@ func (m *Model) Init() tea.Cmd {
  * view
  */
 
+var (
+	mainColor = lipgloss.Color("#00ADD8")
+)
+
 func (m *Model) View() string {
 	return fmt.Sprintf("%s\n%s", m.headerView(), m.listView())
 }
@@ -135,16 +139,16 @@ func (m *Model) listView() string {
 		}
 		s.WriteString(cursor)
 
-		box := "[ ] "
+		box := "◯  "
 		if util.Some(m.selected, func(t *trash.Trash) bool { return t.Key == match.Trash.Key }) {
-			box = "[x] "
+			box = lipgloss.NewStyle().Foreground(mainColor).Render("●  ")
 		}
 		s.WriteString(box)
 
 		for ci, c := range match.Trash.Path {
 			style := lipgloss.NewStyle()
 			if util.Contains(match.Indexes, ci) {
-				style = style.Foreground(lipgloss.Color("#00ADD8"))
+				style = style.Foreground(mainColor)
 			}
 			if i == m.cursor {
 				style = style.Bold(true)
