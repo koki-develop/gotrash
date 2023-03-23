@@ -135,7 +135,7 @@ func (m *Model) listView() string {
 
 		cursor := "  "
 		if i == m.cursor {
-			cursor = "> "
+			cursor = lipgloss.NewStyle().Foreground(mainColor).Render("> ")
 		}
 		s.WriteString(cursor)
 
