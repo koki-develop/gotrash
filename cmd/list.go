@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/koki-develop/gotrash/internal/db"
 	"github.com/spf13/cobra"
@@ -40,7 +41,7 @@ var listCmd = &cobra.Command{
 				}
 			}
 
-			fmt.Printf("%d: %s\n", i, t.Path)
+			fmt.Printf("%d: (%s) %s\n", i, t.TrashedAt.Format(time.DateTime), t.Path)
 		}
 
 		return nil
