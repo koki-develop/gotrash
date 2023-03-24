@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"fmt"
 	"strconv"
+	"time"
 
 	"github.com/koki-develop/go-fzf"
 	"github.com/koki-develop/gotrash/internal/db"
@@ -42,7 +44,11 @@ var restoreCmd = &cobra.Command{
 					fzf.WithStyleUnselectedPrefix(fzf.Style{Faint: true}),
 				),
 			)
-			idxs, err := f.Find(ts, func(i int) string { return ts[i].Path })
+			idxs, err := f.Find(
+				ts,
+				func(i int) string { return ts[i].Path },
+				fzf.WithItemPrefix(func(i int) string { return fmt.Sprintf("(%s) ", ts[i].TrashedAt.Format(time.DateTime)) }),
+			)
 			if err != nil {
 				return err
 			}
