@@ -1,12 +1,16 @@
 package cmd
 
 import (
-	"fmt"
 	"strconv"
 
+	"github.com/koki-develop/go-fzf"
 	"github.com/koki-develop/gotrash/internal/db"
-	"github.com/koki-develop/gotrash/internal/restoreui"
+	"github.com/koki-develop/gotrash/internal/trash"
 	"github.com/spf13/cobra"
+)
+
+const (
+	mainColor = "#00ADD8"
 )
 
 var restoreCmd = &cobra.Command{
@@ -28,17 +32,27 @@ var restoreCmd = &cobra.Command{
 				return err
 			}
 
-			m := restoreui.New(ts)
-			if err := restoreui.Run(m); err != nil {
+			f := fzf.New(
+				fzf.WithNoLimit(true),
+				fzf.WithStyles(
+					fzf.WithStyleCursor(fzf.Style{ForegroundColor: mainColor}),
+					fzf.WithStyleCursorLine(fzf.Style{Bold: true}),
+					fzf.WithStyleMatches(fzf.Style{ForegroundColor: mainColor}),
+					fzf.WithStyleSelectedPrefix(fzf.Style{ForegroundColor: mainColor}),
+					fzf.WithStyleUnselectedPrefix(fzf.Style{Faint: true}),
+				),
+			)
+			idxs, err := f.Find(ts, func(i int) string { return ts[i].Path })
+			if err != nil {
 				return err
 			}
 
-			if m.Canceled() {
-				fmt.Println("canceled.")
-				return nil
+			var choices trash.TrashList
+			for _, i := range idxs {
+				choices = append(choices, ts[i])
 			}
 
-			if err := db.Restore(m.Selected(), flagRestoreForce); err != nil {
+			if err := db.Restore(choices, flagRestoreForce); err != nil {
 				return err
 			}
 		} else {
