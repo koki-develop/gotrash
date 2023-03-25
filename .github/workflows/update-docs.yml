@@ -160,5 +160,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: update docs
           body: ${{ github.sha }}
-          branch: docs/update-
+          branch: docs/update
           branch-suffix: short-commit-hash
