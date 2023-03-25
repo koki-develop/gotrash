@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
       - name: record put
         uses: charmbracelet/vhs-action@v1
         with:
@@ -25,6 +28,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
       - name: record list
         uses: charmbracelet/vhs-action@v1
         with:
@@ -41,6 +47,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
       - name: record restore
         uses: charmbracelet/vhs-action@v1
         with:
@@ -57,6 +66,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
       - name: record restore-ui
         uses: charmbracelet/vhs-action@v1
         with:
@@ -73,6 +85,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
       - name: record clear
         uses: charmbracelet/vhs-action@v1
         with:
