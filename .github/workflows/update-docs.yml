@@ -18,7 +18,7 @@ jobs:
       - name: record put
         uses: charmbracelet/vhs-action@v1
         with:
-          path: ./docs/tapes/put.tape
+          path: ./tapes/put.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload put.gif
         uses: actions/upload-artifact@v3
@@ -37,7 +37,7 @@ jobs:
       - name: record list
         uses: charmbracelet/vhs-action@v1
         with:
-          path: ./docs/tapes/list.tape
+          path: ./tapes/list.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload list.gif
         uses: actions/upload-artifact@v3
@@ -56,7 +56,7 @@ jobs:
       - name: record restore
         uses: charmbracelet/vhs-action@v1
         with:
-          path: ./docs/tapes/restore.tape
+          path: ./tapes/restore.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload restore.gif
         uses: actions/upload-artifact@v3
@@ -75,7 +75,7 @@ jobs:
       - name: record restore-ui
         uses: charmbracelet/vhs-action@v1
         with:
-          path: ./docs/tapes/restore-ui.tape
+          path: ./tapes/restore-ui.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload restore-ui.gif
         uses: actions/upload-artifact@v3
@@ -94,7 +94,7 @@ jobs:
       - name: record clear
         uses: charmbracelet/vhs-action@v1
         with:
-          path: ./docs/tapes/clear.tape
+          path: ./tapes/clear.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload clear.gif
         uses: actions/upload-artifact@v3
