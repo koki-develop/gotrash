@@ -118,22 +118,27 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: put-gif
+          path: ./docs/put.gif
       - name: download list.gif
         uses: actions/download-artifact@v3
         with:
           name: list-gif
+          path: ./docs/list.gif
       - name: download restore.gif
         uses: actions/download-artifact@v3
         with:
           name: restore-gif
+          path: ./docs/restore.gif
       - name: download restore-ui.gif
         uses: actions/download-artifact@v3
         with:
           name: restore-ui-gif
+          path: ./docs/restore-ui.gif
       - name: download clear.gif
         uses: actions/download-artifact@v3
         with:
           name: clear-gif
+          path: ./docs/clear.gif
 
       - name: create pull request
         uses: peter-evans/create-pull-request@v4
