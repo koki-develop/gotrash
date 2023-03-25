@@ -114,31 +114,45 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      # put
       - name: download put.gif
         uses: actions/download-artifact@v3
         with:
           name: put-gif
-          path: ./docs/put.gif
+          path: /tmp/put.gif
+      - run: cp /tmp/put.gif ./docs/put.gif
+
+      # list
       - name: download list.gif
         uses: actions/download-artifact@v3
         with:
           name: list-gif
-          path: ./docs/list.gif
+          path: /tmp/list.gif
+      - run: cp /tmp/list.gif ./docs/list.gif
+
+      # restore
       - name: download restore.gif
         uses: actions/download-artifact@v3
         with:
           name: restore-gif
-          path: ./docs/restore.gif
+          path: /tmp/restore.gif
+      - run: cp /tmp/restore.gif ./docs/restore.gif
+
+      # restore-ui
       - name: download restore-ui.gif
         uses: actions/download-artifact@v3
         with:
           name: restore-ui-gif
-          path: ./docs/restore-ui.gif
+          path: /tmp/restore-ui.gif
+      - run: cp /tmp/restore-ui.gif ./docs/restore-ui.gif
+
+      # clear
       - name: download clear.gif
         uses: actions/download-artifact@v3
         with:
           name: clear-gif
-          path: ./docs/clear.gif
+          path: /tmp/clear.gif
+      - run: cp /tmp/clear.gif ./docs/clear.gif
 
       - name: create pull request
         uses: peter-evans/create-pull-request@v4
