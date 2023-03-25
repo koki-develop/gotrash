@@ -119,7 +119,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: put-gif
-          path: /tmp/put.gif
+          path: /tmp/
       - run: cp /tmp/put.gif ./docs/put.gif
 
       # list
@@ -127,7 +127,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: list-gif
-          path: /tmp/list.gif
+          path: /tmp/
       - run: cp /tmp/list.gif ./docs/list.gif
 
       # restore
@@ -135,7 +135,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: restore-gif
-          path: /tmp/restore.gif
+          path: /tmp/
       - run: cp /tmp/restore.gif ./docs/restore.gif
 
       # restore-ui
@@ -143,7 +143,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: restore-ui-gif
-          path: /tmp/restore-ui.gif
+          path: /tmp/
       - run: cp /tmp/restore-ui.gif ./docs/restore-ui.gif
 
       # clear
@@ -151,7 +151,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: clear-gif
-          path: /tmp/clear.gif
+          path: /tmp/
       - run: cp /tmp/clear.gif ./docs/clear.gif
 
       - name: create pull request
