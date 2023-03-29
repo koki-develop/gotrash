@@ -24,6 +24,8 @@ github.com/koki-develop/go-fzf v0.4.0 h1:pZxlqfgffc9UpqJDZ216DImWXqeD0DB3ARaAttB
 github.com/koki-develop/go-fzf v0.4.0/go.mod h1:N3AsLMZ/eJ0UxoOVu+//LFG6XmS9VVw/FRQqfLFF9PM=
 github.com/koki-develop/go-fzf v0.5.1 h1:pcJpk+i0s+GEGIvU9ckBgYqBQ290DKlHlIAbGKvo0ug=
 github.com/koki-develop/go-fzf v0.5.1/go.mod h1:N3AsLMZ/eJ0UxoOVu+//LFG6XmS9VVw/FRQqfLFF9PM=
+github.com/koki-develop/go-fzf v0.6.0 h1:HEZQt3WIDBy89O5fWicbJKdZv9x5QGo/lFptgo0P0Vw=
+github.com/koki-develop/go-fzf v0.6.0/go.mod h1:mrDPX6slyGG07j+4akL0MoIpF7kUzpvgJWW7vgSJ3+Y=
 github.com/kylelemons/godebug v1.1.0 h1:RPNrshWIDI6G2gRW9EHilWtl7Z6Sb1BR0xunSBf0SNc=
 github.com/kylelemons/godebug v1.1.0/go.mod h1:9/0rRGxNHcop5bhtWyNeEfOS8JIWk580+fNqagV/RAw=
 github.com/lucasb-eyer/go-colorful v1.2.0 h1:1nnpGOrhyZZuNyfu1QjKiUICQ74+3FNCN69Aj6K7nkY=
