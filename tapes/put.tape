@@ -8,6 +8,7 @@ Set Height 600
 # setup
 Hide
 Type "go install" Enter
+Sleep 10s
 Type "gotrash --help" Enter
 Type "gotrash clear -f" Enter
 Type "mkdir /tmp/gotrash" Enter
