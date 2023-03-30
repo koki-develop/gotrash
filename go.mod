@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/google/uuid v1.3.0
-	github.com/koki-develop/go-fzf v0.8.0
+	github.com/koki-develop/go-fzf v0.9.0
 	github.com/spf13/cobra v1.6.1
 	github.com/tidwall/buntdb v1.2.10
 )

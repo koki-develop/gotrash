@@ -28,12 +28,11 @@ type DB struct {
 }
 
 func Open() (*DB, error) {
-	h, err := os.UserHomeDir()
+	trashDir, err := root()
 	if err != nil {
 		return nil, err
 	}
 
-	trashDir := filepath.Join(h, trashDirname)
 	if err := util.CreateDir(trashDir); err != nil {
 		return nil, err
 	}
@@ -53,6 +52,21 @@ func Open() (*DB, error) {
 
 		db: db,
 	}, nil
+}
+
+func root() (string, error) {
+	r := os.Getenv("GOTRASH_ROOT")
+	if r != "" {
+		return r, nil
+	}
+
+	h, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
+	// $HOME/.gotrash
+	return filepath.Join(h, ".gotrash"), nil
 }
 
 func (db *DB) Close() error {
