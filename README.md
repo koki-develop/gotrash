@@ -64,11 +64,13 @@ Use "gotrash [command] --help" for more information about a command.
 
 ![](./docs/put.gif)
 
+Files and directories trashed by `gotrash put` are not deleted, but placed in the trash can ( `$GOTRASH_ROOT/can` ) .  
+The `$GOTRASH_ROOT` environment variable ( default: `$HOME/.gotrash` ) can be rewritten to customize the trash can path.
+
 ### `gotrash list`
 
 Alias: `gotrash ls`
 
-Files and directories trashed by `gotrash put` are not deleted, but placed in the trash can.  
 Files and directories in the trash can can be viewed with `gotrash list`.
 
 ```console
