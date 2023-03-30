@@ -34,7 +34,7 @@ var restoreCmd = &cobra.Command{
 				return err
 			}
 
-			f := fzf.New(
+			f, err := fzf.New(
 				fzf.WithNoLimit(true),
 				fzf.WithStyles(
 					fzf.WithStyleCursor(fzf.Style{ForegroundColor: mainColor}),
@@ -44,6 +44,9 @@ var restoreCmd = &cobra.Command{
 					fzf.WithStyleUnselectedPrefix(fzf.Style{Faint: true}),
 				),
 			)
+			if err != nil {
+				return err
+			}
 			idxs, err := f.Find(
 				ts,
 				func(i int) string { return ts[i].Path },
