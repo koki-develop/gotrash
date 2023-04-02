@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -34,6 +35,8 @@ var listCmd = &cobra.Command{
 			return err
 		}
 
+		digits := len(strconv.Itoa(len(ts)))
+		f := fmt.Sprintf("%%%dd: (%%s), %%s\n", digits)
 		for i, t := range ts {
 			if flagListCurrentDir {
 				if !strings.HasPrefix(t.Path, cwd) {
@@ -41,7 +44,7 @@ var listCmd = &cobra.Command{
 				}
 			}
 
-			fmt.Printf("%d: (%s) %s\n", i, t.TrashedAt.Format(time.DateTime), t.Path)
+			fmt.Printf(f, i, t.TrashedAt.Format(time.DateTime), t.Path)
 		}
 
 		return nil
