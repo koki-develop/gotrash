@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/google/uuid v1.3.0
 	github.com/koki-develop/go-fzf v0.11.0
-	github.com/spf13/cobra v1.6.1
+	github.com/spf13/cobra v1.7.0
 	github.com/tidwall/buntdb v1.2.10
 )
 
@@ -16,7 +16,7 @@ require (
 	github.com/charmbracelet/bubbletea v0.23.2 // indirect
 	github.com/charmbracelet/lipgloss v0.7.1 // indirect
 	github.com/containerd/console v1.0.3 // indirect
-	github.com/inconshreveable/mousetrap v1.0.1 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.18 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
