@@ -36,7 +36,7 @@ var listCmd = &cobra.Command{
 		}
 
 		digits := len(strconv.Itoa(len(ts)))
-		f := fmt.Sprintf("%%%dd: (%%s), %%s\n", digits)
+		f := fmt.Sprintf("%%%dd: (%%s) %%s\n", digits)
 		for i, t := range ts {
 			if flagListCurrentDir {
 				if !strings.HasPrefix(t.Path, cwd) {
