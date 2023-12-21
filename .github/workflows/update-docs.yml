@@ -21,7 +21,7 @@ jobs:
           path: ./tapes/put.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload put.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: put-gif
           path: ./docs/put.gif
@@ -40,7 +40,7 @@ jobs:
           path: ./tapes/list.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload list.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: list-gif
           path: ./docs/list.gif
@@ -59,7 +59,7 @@ jobs:
           path: ./tapes/restore.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload restore.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: restore-gif
           path: ./docs/restore.gif
@@ -78,7 +78,7 @@ jobs:
           path: ./tapes/restore-ui.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload restore-ui.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: restore-ui-gif
           path: ./docs/restore-ui.gif
@@ -97,7 +97,7 @@ jobs:
           path: ./tapes/clear.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload clear.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: clear-gif
           path: ./docs/clear.gif
