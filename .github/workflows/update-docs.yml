@@ -119,7 +119,7 @@ jobs:
 
       # put
       - name: download put.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: put-gif
           path: /tmp/
@@ -127,7 +127,7 @@ jobs:
 
       # list
       - name: download list.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: list-gif
           path: /tmp/
@@ -135,7 +135,7 @@ jobs:
 
       # restore
       - name: download restore.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: restore-gif
           path: /tmp/
@@ -143,7 +143,7 @@ jobs:
 
       # restore-ui
       - name: download restore-ui.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: restore-ui-gif
           path: /tmp/
@@ -151,7 +151,7 @@ jobs:
 
       # clear
       - name: download clear.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: clear-gif
           path: /tmp/
