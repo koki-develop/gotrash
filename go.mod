@@ -3,7 +3,7 @@ module github.com/koki-develop/gotrash
 go 1.20
 
 require (
-	github.com/google/uuid v1.3.0
+	github.com/google/uuid v1.6.0
 	github.com/koki-develop/go-fzf v0.14.2
 	github.com/spf13/cobra v1.7.0
 	github.com/tidwall/buntdb v1.3.0
