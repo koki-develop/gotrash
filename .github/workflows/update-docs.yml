@@ -12,9 +12,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
-        with:
-          go-version-file: go.mod
+      - uses: ./.github/actions/setup
       - name: record put
         uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
@@ -31,9 +29,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
-        with:
-          go-version-file: go.mod
+      - uses: ./.github/actions/setup
       - name: record list
         uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
@@ -50,9 +46,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
-        with:
-          go-version-file: go.mod
+      - uses: ./.github/actions/setup
       - name: record restore
         uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
@@ -69,9 +63,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
-        with:
-          go-version-file: go.mod
+      - uses: ./.github/actions/setup
       - name: record restore-ui
         uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
@@ -88,9 +80,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
-        with:
-          go-version-file: go.mod
+      - uses: ./.github/actions/setup
       - name: record clear
         uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
