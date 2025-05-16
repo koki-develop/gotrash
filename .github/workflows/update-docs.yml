@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
         with:
           go-version-file: go.mod
       - name: record put
-        uses: charmbracelet/vhs-action@v1
+        uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
           path: ./tapes/put.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload put.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
         with:
           name: put-gif
           path: ./docs/put.gif
@@ -30,17 +30,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
         with:
           go-version-file: go.mod
       - name: record list
-        uses: charmbracelet/vhs-action@v1
+        uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
           path: ./tapes/list.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload list.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
         with:
           name: list-gif
           path: ./docs/list.gif
@@ -49,17 +49,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
         with:
           go-version-file: go.mod
       - name: record restore
-        uses: charmbracelet/vhs-action@v1
+        uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
           path: ./tapes/restore.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload restore.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
         with:
           name: restore-gif
           path: ./docs/restore.gif
@@ -68,17 +68,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
         with:
           go-version-file: go.mod
       - name: record restore-ui
-        uses: charmbracelet/vhs-action@v1
+        uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
           path: ./tapes/restore-ui.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload restore-ui.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
         with:
           name: restore-ui-gif
           path: ./docs/restore-ui.gif
@@ -87,17 +87,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: actions/setup-go@19bb51245e9c80abacb2e91cc42b33fa478b8639 # v4.2.1
         with:
           go-version-file: go.mod
       - name: record clear
-        uses: charmbracelet/vhs-action@v1
+        uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
         with:
           path: ./tapes/clear.tape
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: upload clear.gif
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
         with:
           name: clear-gif
           path: ./docs/clear.gif
@@ -115,11 +115,11 @@ jobs:
       pull-requests: write
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       # put
       - name: download put.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: put-gif
           path: /tmp/
@@ -127,7 +127,7 @@ jobs:
 
       # list
       - name: download list.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: list-gif
           path: /tmp/
@@ -135,7 +135,7 @@ jobs:
 
       # restore
       - name: download restore.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: restore-gif
           path: /tmp/
@@ -143,7 +143,7 @@ jobs:
 
       # restore-ui
       - name: download restore-ui.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: restore-ui-gif
           path: /tmp/
@@ -151,14 +151,14 @@ jobs:
 
       # clear
       - name: download clear.gif
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: clear-gif
           path: /tmp/
       - run: cp /tmp/clear.gif ./docs/clear.gif
 
       - name: create pull request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@4e1beaa7521e8b457b572c090b25bd3db56bf1c5 # v5.0.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: update docs
