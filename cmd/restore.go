@@ -26,7 +26,7 @@ var restoreCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		defer db.Close()
+		defer func() { _ = db.Close() }()
 
 		if len(args) == 0 {
 			ts, err := db.List(false)

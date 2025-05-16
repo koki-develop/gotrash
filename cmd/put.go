@@ -16,7 +16,7 @@ var putCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		defer db.Close()
+		defer func() { _ = db.Close() }()
 
 		if err := db.Put(args); err != nil {
 			return err

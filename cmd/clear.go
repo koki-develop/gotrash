@@ -19,7 +19,7 @@ var clearCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		defer db.Close()
+		defer func() { _ = db.Close() }()
 
 		if !flagClearForce {
 			if !util.YesNo("clear all trashed files or directories?") {
