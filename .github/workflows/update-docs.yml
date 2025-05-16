@@ -23,7 +23,7 @@ jobs:
         with:
           path: ./tapes/put.tape
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: put-gif
           path: ./docs/put.gif
@@ -42,7 +42,7 @@ jobs:
         with:
           path: ./tapes/list.tape
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: list-gif
           path: ./docs/list.gif
@@ -61,7 +61,7 @@ jobs:
         with:
           path: ./tapes/restore.tape
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: restore-gif
           path: ./docs/restore.gif
@@ -80,7 +80,7 @@ jobs:
         with:
           path: ./tapes/restore-ui.tape
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: restore-ui-gif
           path: ./docs/restore-ui.gif
@@ -99,7 +99,7 @@ jobs:
         with:
           path: ./tapes/clear.tape
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: clear-gif
           path: ./docs/clear.gif
@@ -122,35 +122,35 @@ jobs:
           persist-credentials: false
 
       # put
-      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: put-gif
           path: /tmp/
       - run: cp /tmp/put.gif ./docs/put.gif
 
       # list
-      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: list-gif
           path: /tmp/
       - run: cp /tmp/list.gif ./docs/list.gif
 
       # restore
-      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: restore-gif
           path: /tmp/
       - run: cp /tmp/restore.gif ./docs/restore.gif
 
       # restore-ui
-      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: restore-ui-gif
           path: /tmp/
       - run: cp /tmp/restore-ui.gif ./docs/restore-ui.gif
 
       # clear
-      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: clear-gif
           path: /tmp/
