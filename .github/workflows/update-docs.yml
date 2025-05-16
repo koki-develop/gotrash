@@ -19,7 +19,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
+      - uses: charmbracelet/vhs-action@59641cdc7fadf3978db65eb8c6937ea2752f4ec3 # v2.1.0
         with:
           path: ./tapes/put.tape
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -38,7 +38,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
+      - uses: charmbracelet/vhs-action@59641cdc7fadf3978db65eb8c6937ea2752f4ec3 # v2.1.0
         with:
           path: ./tapes/list.tape
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -57,7 +57,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
+      - uses: charmbracelet/vhs-action@59641cdc7fadf3978db65eb8c6937ea2752f4ec3 # v2.1.0
         with:
           path: ./tapes/restore.tape
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -76,7 +76,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
+      - uses: charmbracelet/vhs-action@59641cdc7fadf3978db65eb8c6937ea2752f4ec3 # v2.1.0
         with:
           path: ./tapes/restore-ui.tape
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -95,7 +95,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - uses: charmbracelet/vhs-action@5bc47255c016b6af28ad6b633ee9a07b79468804 # v1.2.3
+      - uses: charmbracelet/vhs-action@59641cdc7fadf3978db65eb8c6937ea2752f4ec3 # v2.1.0
         with:
           path: ./tapes/clear.tape
           token: ${{ secrets.GITHUB_TOKEN }}
