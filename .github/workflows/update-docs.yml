@@ -159,7 +159,7 @@ jobs:
       - uses: peter-evans/create-pull-request@4e1beaa7521e8b457b572c090b25bd3db56bf1c5 # v5.0.3
         with:
           token: ${{ github.token }}
-          title: update docs
+          title: "chore: Update docs"
           body: ${{ github.sha }}
           branch: docs/update
           branch-suffix: short-commit-hash
