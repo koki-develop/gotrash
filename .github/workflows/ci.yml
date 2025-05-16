@@ -3,7 +3,10 @@ name: build
 permissions: {}
 
 on:
+  pull_request:
   push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -19,8 +22,13 @@ jobs:
       - run: go build .
 
   lint:
+    timeout-minutes: 10
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup
       - uses: golangci/golangci-lint-action@3a919529898de77ec3da873e3063ca4b10e7f5cc # v3.7.0

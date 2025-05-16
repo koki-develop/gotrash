@@ -1,5 +1,7 @@
 name: release
 
+permissions: {}
+
 on:
   push:
     tags:
@@ -7,6 +9,7 @@ on:
 
 jobs:
   release:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -14,6 +17,7 @@ jobs:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: ./.github/actions/setup
 
       - uses: goreleaser/goreleaser-action@5fdedb94abba051217030cc86d4523cf3f02243d # v4.6.0
