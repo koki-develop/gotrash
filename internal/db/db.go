@@ -27,6 +27,12 @@ type DB struct {
 	db *buntdb.DB
 }
 
+type PutOptions struct {
+	RmMode    bool
+	Recursive bool
+	Force     bool
+}
+
 func Open() (*DB, error) {
 	trashDir, err := root()
 	if err != nil {
@@ -73,7 +79,7 @@ func (db *DB) Close() error {
 	return db.db.Close()
 }
 
-func (db *DB) Put(ps []string) error {
+func (db *DB) Put(ps []string, opts PutOptions) error {
 	if err := util.CreateDir(db.filesDir); err != nil {
 		return err
 	}
@@ -84,7 +90,20 @@ func (db *DB) Put(ps []string) error {
 			return err
 		}
 		if !exists {
+			if opts.RmMode && opts.Force {
+				continue
+			}
 			return fmt.Errorf("%s: no such file or directory", p)
+		}
+
+		if opts.RmMode && !opts.Recursive {
+			isDir, err := util.IsDir(p)
+			if err != nil {
+				return err
+			}
+			if isDir {
+				return fmt.Errorf("cannot remove '%s': Is a directory", p)
+			}
 		}
 
 		p, err = filepath.Abs(p)

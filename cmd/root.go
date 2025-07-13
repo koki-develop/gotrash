@@ -21,6 +21,11 @@ var (
 
 	// clear
 	flagClearForce bool
+
+	// put
+	flagPutRmMode     bool
+	flagPutRecursive  bool
+	flagPutForce      bool
 )
 
 var rootCmd = &cobra.Command{
@@ -72,4 +77,9 @@ func init() {
 
 	// clear
 	clearCmd.Flags().BoolVarP(&flagClearForce, "force", "f", false, "skip confirmation before clear")
+
+	// put
+	putCmd.Flags().BoolVar(&flagPutRmMode, "rm-mode", false, "enable rm compatibility mode")
+	putCmd.Flags().BoolVarP(&flagPutRecursive, "recursive", "r", false, "remove directories and their contents recursively (only in rm mode)")
+	putCmd.Flags().BoolVarP(&flagPutForce, "force", "f", false, "ignore nonexistent files and arguments, never prompt (only in rm mode)")
 }
