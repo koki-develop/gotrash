@@ -13,8 +13,8 @@ import (
 
 var listCmd = &cobra.Command{
 	Use:          "list",
-	Short:        "List trashed flies or directories",
-	Long:         "List trashed flies or directories.",
+	Short:        "List trashed files or directories",
+	Long:         "List trashed files or directories.",
 	Aliases:      []string{"ls"},
 	Args:         cobra.MaximumNArgs(0),
 	SilenceUsage: true,

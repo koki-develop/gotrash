@@ -46,7 +46,7 @@ Available Commands:
   clear       Clear all trashed files or directories
   completion  Generate the autocompletion script for the specified shell
   help        Help about any command
-  list        List trashed flies or directories
+  list        List trashed files or directories
   put         Trash files or directories
   restore     Restore trashed files or directories
 
