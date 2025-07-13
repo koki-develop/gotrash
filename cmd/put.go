@@ -12,13 +12,19 @@ var putCmd = &cobra.Command{
 	Args:         cobra.MinimumNArgs(1),
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		db, err := db.Open()
+		database, err := db.Open()
 		if err != nil {
 			return err
 		}
-		defer func() { _ = db.Close() }()
+		defer func() { _ = database.Close() }()
 
-		if err := db.Put(args); err != nil {
+		opts := db.PutOptions{
+			RmMode:    flagPutRmMode,
+			Recursive: flagPutRecursive,
+			Force:     flagPutForce,
+		}
+
+		if err := database.Put(args, opts); err != nil {
 			return err
 		}
 

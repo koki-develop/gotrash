@@ -29,3 +29,11 @@ func Exists(p string) (bool, error) {
 	}
 	return true, nil
 }
+
+func IsDir(p string) (bool, error) {
+	info, err := os.Stat(p)
+	if err != nil {
+		return false, err
+	}
+	return info.IsDir(), nil
+}
