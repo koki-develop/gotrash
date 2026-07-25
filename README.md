@@ -2,7 +2,6 @@
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/koki-develop/gotrash)](https://github.com/koki-develop/gotrash/releases/latest)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/koki-develop/gotrash/ci.yml?logo=github)](https://github.com/koki-develop/gotrash/actions/workflows/ci.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/koki-develop/gotrash)](https://goreportcard.com/report/github.com/koki-develop/gotrash)
 [![LICENSE](https://img.shields.io/github/license/koki-develop/gotrash)](./LICENSE)
 
 rm alternative written in Go.
